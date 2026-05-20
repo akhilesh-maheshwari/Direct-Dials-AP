@@ -1,0 +1,33 @@
+{
+  "actorSpecification": 1,
+  "fields": [
+    { "name": "publicIdentifier",      "type": "string" },
+    { "name": "linkedInIdentifier",    "type": "string" },
+    { "name": "memberIdentifier",      "type": "string" },
+    { "name": "linkedInUrl",           "type": "string" },
+    { "name": "firstName",             "type": "string" },
+    { "name": "lastName",              "type": "string" },
+    { "name": "headline",              "type": "string" },
+    { "name": "summary",               "type": "string" },
+    { "name": "location",              "type": "string" },
+    { "name": "followerCount",         "type": "integer" },
+    { "name": "premium",               "type": "boolean" },
+    { "name": "is_open_profile",       "type": "boolean" },
+    { "name": "is_creator",            "type": "boolean" },
+    { "name": "is_influencer",         "type": "boolean" },
+    { "name": "is_self",               "type": "boolean" },
+    { "name": "is_relationship",       "type": "boolean" },
+    { "name": "websites",              "type": "string" },
+    { "name": "connections_count",     "type": "integer" },
+    { "name": "birthdate",             "type": "string" },
+    { "name": "positions",             "type": "string" },
+    { "name": "schools",               "type": "string" },
+    { "name": "skills",                "type": "string" },
+    { "name": "languages",             "type": "string" },
+    { "name": "recommendations",       "type": "string" },
+    { "name": "volunteering_experience","type": "string" },
+    { "name": "photoUrl",              "type": "string" },
+    { "name": "backgroundUrl",         "type": "string" },
+    { "name": "request_type",          "type": "string" }
+  ]
+}
