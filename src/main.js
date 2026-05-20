@@ -94,7 +94,7 @@ try {
   // 5. CALCULATE COST
   // ──────────────────────────────
   const chargeableRows = Math.max(0, rowCount - freeLeadsRemaining);
-  const creditsCost    = parseFloat((chargeableRows * 0.005).toFixed(3));
+  const creditsCost    = parseFloat((chargeableRows * 0.05).toFixed(3));
   console.log('URL count      :', rowCount);
   console.log('Free leads     :', isFirstTime ? FREE_TRIAL_LEADS : 0);
   console.log('Chargeable rows:', chargeableRows);
