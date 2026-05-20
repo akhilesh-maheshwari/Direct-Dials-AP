@@ -1,0 +1,26 @@
+{
+    "title": "Direct Dials",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "fileName": {
+            "title": "File Name",
+            "type": "string",
+            "description": "Name of the output file to be exported.",
+            "editor": "textfield"
+        },
+        "linkedinUrls": {
+            "title": "LinkedIn Profile URLs",
+            "type": "array",
+            "description": "Enter one or more LinkedIn profile URLs.",
+            "editor": "stringList",
+            "prefill": [
+                "https://www.linkedin.com/in/williamhgates"
+            ]
+        }
+    },
+    "required": [
+        "fileName",
+        "linkedinUrls"
+    ]
+}
