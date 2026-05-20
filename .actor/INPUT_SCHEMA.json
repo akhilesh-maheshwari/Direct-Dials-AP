@@ -15,7 +15,7 @@
             "type": "array",
             "description": "Enter one or more LinkedIn profile URLs.",
             "editor": "stringList",
-            "default": [ "https://www.linkedin.com/in/williamhgates"
+            "prefill": [ "https://www.linkedin.com/in/williamhgates"
             ]
         }
     },
