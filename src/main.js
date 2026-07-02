@@ -438,7 +438,7 @@ try {
         continue;
       }
 
-      const boomerangOutputUrl = `https://s1.boomerangserver.co.in/webhook/direct-dials-output?request_id=${request_id}`;
+      const boomerangOutputUrl = `https://directdial.boomerangserver.co.in/webhook/direct-dials-stats?request_id=${request_id}`;
 
       let outputLink = '';
       try {
