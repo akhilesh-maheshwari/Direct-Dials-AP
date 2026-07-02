@@ -71,7 +71,7 @@ try {
   const FREE_TRIAL_LEADS = 50;
 
   // Named store persists across all runs — global DB of trial users for this actor
-  const trialStore  = await Actor.openKeyValueStore('boomerang-free-trials-linkedin-profile');
+  const trialStore  = await Actor.openKeyValueStore('boomerang-free-trials-direct-dials');
   const trialRecord = await trialStore.getValue(userId);
   const isFirstTime = !trialRecord;
 
