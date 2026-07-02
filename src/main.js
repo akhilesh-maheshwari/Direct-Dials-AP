@@ -93,8 +93,10 @@ try {
   // ──────────────────────────────
   // 5. CALCULATE COST
   // ──────────────────────────────
+  // Pricing: $50 per 1000 leads = $0.05 per lead
+  const PRICE_PER_LEAD = 0.05;
   const chargeableRows = Math.max(0, rowCount - freeLeadsRemaining);
-  const creditsCost    = parseFloat((chargeableRows * 0.05).toFixed(3));
+  const creditsCost    = parseFloat((chargeableRows * PRICE_PER_LEAD).toFixed(3));
   console.log('URL count      :', rowCount);
   console.log('Free leads     :', isFirstTime ? FREE_TRIAL_LEADS : 0);
   console.log('Chargeable rows:', chargeableRows);
@@ -517,7 +519,7 @@ try {
         }
 
         if (chargeableLeads > 0) {
-          const batchCost = parseFloat((chargeableLeads * 0.005).toFixed(3));
+          const batchCost = parseFloat((chargeableLeads * PRICE_PER_LEAD).toFixed(3));
           totalCharged   += batchCost;
           console.log(`  💳 Batch ${batch_number} — Charging for ${chargeableLeads} rows ($${batchCost}). Total charged: $${totalCharged.toFixed(3)}`);
           await Actor.charge({ eventName: serviceOption1, count: chargeableLeads });
