@@ -14,7 +14,7 @@ try {
   const serviceOption1 = 'Direct_dials';
   const requestSource  = 'Direct_Dials_AP';
   const boomerangInputUrl = 'https://directdial.boomerangserver.co.in/webhook/direct-dials-custom';
-  const boomerangStatUrl  = 'https://s1.boomerangserver.co.in/webhook/direct-dials-stats';
+  const boomerangStatUrl  = 'https://directdial.boomerangserver.co.in/webhook/direct-dials-stats';
 
   console.log('Tag Name :', serviceTagName);
   console.log('Service  :', serviceName);
