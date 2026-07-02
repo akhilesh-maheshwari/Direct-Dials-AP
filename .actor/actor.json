@@ -1,6 +1,6 @@
 {
   "actorSpecification": 1,
-  "name": "your-actor-name",
+  "name": "Direct Dials",
   "version": "1.0",
   "storages": {
     "dataset": {
@@ -10,34 +10,9 @@
           "title": "Overview",
           "transformation": {
             "fields": [
-              "publicIdentifier",
-              "linkedInIdentifier",
-              "memberIdentifier",
-              "linkedInUrl",
-              "firstName",
-              "lastName",
-              "headline",
-              "summary",
-              "location",
-              "followerCount",
-              "premium",
-              "is_open_profile",
-              "is_creator",
-              "is_influencer",
-              "is_self",
-              "is_relationship",
-              "websites",
-              "connections_count",
-              "birthdate",
-              "positions",
-              "schools",
-              "skills",
-              "languages",
-              "recommendations",
-              "volunteering_experience",
-              "photoUrl",
-              "backgroundUrl",
-              "request_type"
+              "requested_linkedin_url",
+              "phone_number",
+              "status"
             ]
           },
           "display": {
