@@ -2,6 +2,7 @@
   "actorSpecification": 1,
   "name": "Direct Dials",
   "version": "1.0",
+  "output": "./output_schema.json",
   "storages": {
     "dataset": {
       "actorSpecification": 1,
