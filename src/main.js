@@ -324,7 +324,7 @@ try {
         for (let attempt = 1; attempt <= maxAttempts; attempt++) {
           try {
             const statusRes = await fetch(
-              'https://frontend.boomerangserver.co.in/webhook/Status_and_output_universal',
+              'https://frontend.boomerangserver.co.in/webhook/Status_and_output_universal_flow',
               {
                 method : 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -373,7 +373,7 @@ try {
 
         try {
           await fetch(
-            'https://frontend.boomerangserver.co.in/webhook/Status_and_output_universal',
+            'https://frontend.boomerangserver.co.in/webhook/Status_and_output_universal_flow',
             {
               method : 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -445,7 +445,7 @@ try {
       let outputLink = '';
       try {
         const outputRes = await fetch(
-          'https://frontend.boomerangserver.co.in/webhook/Status_and_output_universal',
+          'https://frontend.boomerangserver.co.in/webhook/Status_and_output_universal_flow',
           {
             method : 'POST',
             headers: { 'Content-Type': 'application/json' },
