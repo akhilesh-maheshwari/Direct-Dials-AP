@@ -12,7 +12,7 @@
           "transformation": {
             "fields": [
               "requested_linkedin_url",
-              "phone_number",
+              "phone_numbers",
               "status"
             ]
           },
