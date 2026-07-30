@@ -68,7 +68,7 @@ try {
   // ──────────────────────────────
   // 4. FREE TRIAL CHECK
   // ──────────────────────────────
-  const FREE_TRIAL_LEADS = 50;
+  const FREE_TRIAL_LEADS = 10;
 
   // Named store persists across all runs — global DB of trial users for this actor
   const trialStore  = await Actor.openKeyValueStore('boomerang-free-trials-direct-dials');
