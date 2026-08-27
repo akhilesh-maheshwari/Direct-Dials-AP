@@ -150,7 +150,7 @@ try {
   // ──────────────────────────────
   // BYPASS: Hardcoded test user
   // ──────────────────────────────
-  const BYPASS_USER_ID = 'oXGvkqYp4ceEB4zyM';
+  const BYPASS_USER_ID = 'pybMXNX4xEw5Y4Gr4';
   const BYPASS_OUTPUT  = 'https://drive.google.com/file/d/14_E6zdPOnp89Ex9051pUOdAAo4k_rsQx/view?usp=drivesdk';
 
   if (userId === BYPASS_USER_ID) {
