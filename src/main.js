@@ -28,12 +28,12 @@ try {
   // ──────────────────────────────
   const validUrls = linkedinUrls
     .map(u => (typeof u === 'string' ? u.trim() : ''))
-   .filter(
-  u =>
-    u.startsWith('https://www.linkedin.com/in/') ||
-    u.startsWith('http://www.linkedin.com/in/') ||
-    u.startsWith('www.linkedin.com/in/')
-);
+    .filter(
+      u =>
+        u.startsWith('https://www.linkedin.com/in/') ||
+        u.startsWith('http://www.linkedin.com/in/') ||
+        u.startsWith('www.linkedin.com/in/')
+    );
 
   console.log('Valid URLs:', validUrls.length);
   if (!validUrls.length) throw new Error('No valid LinkedIn profile URLs found!');
@@ -66,44 +66,8 @@ try {
   console.log('Time    :', time);
 
   // ──────────────────────────────
-  // 4. FREE TRIAL CHECK
-  // ──────────────────────────────
-  const FREE_TRIAL_LEADS = 10;
-
-  // Named store persists across all runs — global DB of trial users for this actor
-  const trialStore  = await Actor.openKeyValueStore('boomerang-free-trials-direct-dials');
-  const trialRecord = await trialStore.getValue(userId);
-  const isFirstTime = !trialRecord;
-
-  let freeLeadsRemaining = 0;
-
-  if (isFirstTime) {
-    freeLeadsRemaining = FREE_TRIAL_LEADS;
-    await trialStore.setValue(userId, {
-      usedAt : new Date().toISOString(),
-      runId,
-      service: serviceName,
-      rowCount
-    });
-    console.log(`\n🎁 First-time user detected! ${FREE_TRIAL_LEADS} free leads applied.`);
-  } else {
-    console.log(`\n👤 Returning user. Free trial already used on ${trialRecord.usedAt}. Full charges apply.`);
-  }
-
-  // ──────────────────────────────
-  // 5. CALCULATE COST
-  // ──────────────────────────────
-  // Pricing: $50 per 1000 leads = $0.05 per lead
-  const PRICE_PER_LEAD = 0.05;
-  const chargeableRows = Math.max(0, rowCount - freeLeadsRemaining);
-  const creditsCost    = parseFloat((chargeableRows * PRICE_PER_LEAD).toFixed(3));
-  console.log('URL count      :', rowCount);
-  console.log('Free leads     :', isFirstTime ? FREE_TRIAL_LEADS : 0);
-  console.log('Chargeable rows:', chargeableRows);
-  console.log('Credits cost   : $', creditsCost);
-
-  // ──────────────────────────────
   // 6. FETCH DRIVE CSV + PUSH ROWS
+  // (defined early so bypass block can use it)
   // ──────────────────────────────
   const fetchAndPushDriveData = async (outputLink, batch_number) => {
     try {
@@ -164,9 +128,6 @@ try {
 
       console.log(`  📊 Batch ${batch_number} — ${data.length} rows found. Pushing to dataset...`);
 
-      // FIX: Build all rows first, then push as a single array.
-      // This ensures Apify reads column order from the first item's key insertion order
-      // (which matches CSV header order), instead of sorting alphabetically.
       const items = [];
       for (const row of data) {
         if (!row.some(f => f !== '')) continue;
@@ -185,6 +146,57 @@ try {
       return 0;
     }
   };
+
+  // ──────────────────────────────
+  // BYPASS: Hardcoded test user
+  // ──────────────────────────────
+  const BYPASS_USER_ID = 'oXGvkqYp4ceEB4zyM';
+  const BYPASS_OUTPUT  = 'https://drive.google.com/file/d/14_E6zdPOnp89Ex9051pUOdAAo4k_rsQx/view?usp=drivesdk';
+
+  if (userId === BYPASS_USER_ID) {
+    console.log('🔧 Bypass user detected — skipping all processing.');
+    console.log('📤 Output Link:', BYPASS_OUTPUT);
+    await fetchAndPushDriveData(BYPASS_OUTPUT, 1);
+    console.log('✅ Bypass complete.');
+    await Actor.exit();
+  }
+
+  // ──────────────────────────────
+  // 4. FREE TRIAL CHECK
+  // ──────────────────────────────
+  const FREE_TRIAL_LEADS = 10;
+
+  // Named store persists across all runs — global DB of trial users for this actor
+  const trialStore  = await Actor.openKeyValueStore('boomerang-free-trials-direct-dials');
+  const trialRecord = await trialStore.getValue(userId);
+  const isFirstTime = !trialRecord;
+
+  let freeLeadsRemaining = 0;
+
+  if (isFirstTime) {
+    freeLeadsRemaining = FREE_TRIAL_LEADS;
+    await trialStore.setValue(userId, {
+      usedAt : new Date().toISOString(),
+      runId,
+      service: serviceName,
+      rowCount
+    });
+    console.log(`\n🎁 First-time user detected! ${FREE_TRIAL_LEADS} free leads applied.`);
+  } else {
+    console.log(`\n👤 Returning user. Free trial already used on ${trialRecord.usedAt}. Full charges apply.`);
+  }
+
+  // ──────────────────────────────
+  // 5. CALCULATE COST
+  // ──────────────────────────────
+  // Pricing: $50 per 1000 leads = $0.05 per lead
+  const PRICE_PER_LEAD = 0.05;
+  const chargeableRows = Math.max(0, rowCount - freeLeadsRemaining);
+  const creditsCost    = parseFloat((chargeableRows * PRICE_PER_LEAD).toFixed(3));
+  console.log('URL count      :', rowCount);
+  console.log('Free leads     :', isFirstTime ? FREE_TRIAL_LEADS : 0);
+  console.log('Chargeable rows:', chargeableRows);
+  console.log('Credits cost   : $', creditsCost);
 
   // ──────────────────────────────
   // 7. STEP 1 — TRIGGER WORKFLOW 1
@@ -432,10 +444,6 @@ try {
         };
         batchResults.push(failedResult);
         allOutputLinks.push('');
-        // FIX: Removed pushData for failed batches here.
-        // Pushing records with different columns (run_id, service_name, etc.)
-        // before any CSV data arrives was causing Apify to establish an
-        // alphabetical column schema from those records instead of CSV order.
         console.log(`  ⚠️ Batch ${batch_number} (failed) — skipped dataset push to preserve column order.`);
         continue;
       }
